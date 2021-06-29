@@ -17,7 +17,13 @@ struct Opt {
 fn main() {
     let Opt { hex, filename } = Opt::from_args();
 
-    let code = std::fs::read(filename).expect("Should be able to read the file");
+    let file_contents = std::fs::read(filename).expect("Should be able to read the file");
+
+    let code = if hex {
+        hex_to_raw(&file_contents)
+    } else {
+        file_contents
+    };
 
     let blob = RuntimeBlob::uncompress_if_needed(&code)
         .expect("wasm runtime blob should be built successfully");
@@ -29,4 +35,15 @@ fn main() {
     println!("spec name: {}", version.spec_name);
     println!("spec version: {}", version.spec_version);
     println!("impl version: {}", version.impl_version);
+}
+
+fn hex_to_raw(hex_input: &[u8]) -> Vec<u8> {
+    let without_prefix = if hex_input[0..2] == "0x".to_owned().into_bytes() {
+        &hex_input[2..]
+    } else {
+        hex_input
+    };
+
+    hex::decode(without_prefix)
+        .expect("File should decode as hex when the `--hex` flag is passed")
 }

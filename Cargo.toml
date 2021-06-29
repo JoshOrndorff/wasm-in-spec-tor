@@ -7,6 +7,7 @@ description = "Simple CLI tool for extracting the runtime version from a Substra
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+hex = "0.4.3"
 structopt = "0.3.8"
 sc-executor = { git = "https://github.com/paritytech/substrate" }
 sc-executor-common = { git = "https://github.com/paritytech/substrate" }
