@@ -1,0 +1,24 @@
+name: CI
+
+on: ["push"]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Rust toolchain
+        run: rustup show
+
+      - name: Build binary
+        run: cargo build --release
+
+#TODO
+# Write and run tests?
+# Clippy
+# Cargo fmt
+# Build docker image
+# Upload linux binary
