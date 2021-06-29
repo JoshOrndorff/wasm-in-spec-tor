@@ -2,11 +2,10 @@ use sc_executor::read_embedded_version;
 use sc_executor_common::runtime_blob::RuntimeBlob;
 
 fn main() {
-    // The code needs to be in "raw" format, not hex.
-    // TODO find a way to convert if hex is provided.
-    let code = &include_bytes!("../moonbase.wasm")[..];
+    let code = std::fs::read("moonbase.wasm")
+        .expect("Should be able to read the file");
 
-    let blob = RuntimeBlob::uncompress_if_needed(code)
+    let blob = RuntimeBlob::uncompress_if_needed(&code)
         .expect("wasm runtime blob should be built successfully");
 
     let version = read_embedded_version(&blob)
