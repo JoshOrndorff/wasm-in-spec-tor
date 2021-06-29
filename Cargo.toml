@@ -1,0 +1,11 @@
+[package]
+name = "wasm-inSPECtor"
+version = "0.1.0"
+edition = "2018"
+description = "Simple CLI tool for extracting the runtime version from a Substrate runtime wasm blob."
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+sc-executor = { git = "https://github.com/paritytech/substrate" }
+sc-executor-common = { git = "https://github.com/paritytech/substrate" }
